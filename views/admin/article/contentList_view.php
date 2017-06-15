@@ -1,15 +1,3 @@
-    <link href="<?php echo input::jsUrl('lib/ligerUI/skins/Aqua/css/ligerui-all.css');?>" rel="stylesheet" type="text/css" />   
-    <script src="<?php echo input::jsUrl('lib/jquery/jquery-1.9.0.min.js');?>" type="text/javascript"></script>    
-    <script src="<?php echo input::jsUrl('lib/json2.js');?>" type="text/javascript"></script>
-    <script src="<?php echo input::jsUrl('lib/ligerUI/js/core/base.js');?>" type="text/javascript"></script>
-    <script src="<?php echo input::jsUrl('lib/ligerUI/js/plugins/ligerDialog.js');?>" type="text/javascript"></script>
-    <script src="<?php echo input::jsUrl('lib/ligerUI/js/plugins/ligerTextBox.js');?>" type="text/javascript"></script>
-    <script src="<?php echo input::jsUrl('lib/ligerUI/js/plugins/ligerCheckBox.js');?>" type="text/javascript"></script>
-    <script src="<?php echo input::jsUrl('lib/ligerUI/js/plugins/ligerComboBox.js');?>" type="text/javascript"></script>
-    <script src="<?php echo input::jsUrl('lib/ligerUI/js/plugins/ligerGrid.js');?>" type="text/javascript"></script>
-    <script src="<?php echo input::jsUrl('lib/ligerUI/js/plugins/ligerDateEditor.js');?>" type="text/javascript"></script>
-    <script src="<?php echo input::jsUrl('lib/ligerUI/js/plugins/ligerSpinner.js');?>" type="text/javascript"></script>
-    
     <script type="text/javascript">
         var sexData = [{ status: 1, text: '正常' }, { status: 0, text: '禁用'}];
         $(function(){ 
@@ -19,13 +7,13 @@
         var manager, g;
         function f_initGrid()
         { 
-           g =  manager = $("#maingrid").ligerGrid({
+            g =  manager = $("#maingrid").ligerGrid({
                 columns: [
                 { display: '主键', name: 'id', width: 50, type: 'int',frozen:true },
                 { display: '标题',  width: 320, name: 'title',editor: { type: 'text' } },
                 { display: '副标题',  width: 320, name: 'subtitle'},
                 { display: '文章分类',  width: 130, name: 'catname' },
-                { display: '状态', width: 80, name: 'status',type:'int',
+                { display: '状态', width: 60, name: 'status',type:'int',
                     editor: { type: 'select', data: sexData, valueColumnName: 'status' },
                     render: function (item)
                     {
@@ -33,7 +21,7 @@
                         return '禁用';
                     }
                 },   
-                { display: '添加时间', name: 'addtime', type: 'date', width: 200 },
+                { display: '添加时间', name: 'addtime', type: 'date', width: 140 },
                 { display: '操作', isSort: false, width: 120, render: function (rowdata, rowindex, value)
                 {
                     var h = "";
@@ -57,15 +45,19 @@
                 },
                 onToPrev: function(pageSize){
 
-                },
-                enabledEdit: true, 
-                clickToEdit: false, 
-                isScroll: false,  
+                },                 
+                toolbar: { items: [
+                { text: '增加', click: addNewRow, icon: 'add' },
+                { line: true }]},
+                // enabledEdit: true, 
+                // clickToEdit: false, 
+                // isScroll: false,  
                 pageSize:30,
+                // rownumbers:true,
                 // data:EmployeeData,
                 url:'<?php echo input::site("admin/article/getContentList");?>',
                 usePager:true,
-                width: '99%'
+                height:'99%'
             });   
         }
         function beginEdit() {
@@ -141,7 +133,7 @@
             alert(JSON.stringify(data));
         } 
     </script>
-    <a class="l-button" style="width:100px;float:left; margin-left:6px;margin-top:10px;" onclick="addNewRow()">添加文章</a>
 
     <div class="l-clear"></div>
-    <div id="maingrid" style="margin-top:10px"></div>
+    <div id="maingrid"></div>
+    <div style="display:none;"></div>

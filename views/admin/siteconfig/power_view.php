@@ -1,15 +1,4 @@
-    <link href="<?php echo input::jsUrl('lib/ligerUI/skins/Aqua/css/ligerui-all.css');?>" rel="stylesheet" type="text/css" />   
-    <script src="<?php echo input::jsUrl('lib/jquery/jquery-1.9.0.min.js');?>" type="text/javascript"></script>    
-    <script src="<?php echo input::jsUrl('lib/json2.js');?>" type="text/javascript"></script>
-    <script src="<?php echo input::jsUrl('lib/ligerUI/js/core/base.js');?>" type="text/javascript"></script>
-    <script src="<?php echo input::jsUrl('lib/ligerUI/js/plugins/ligerDialog.js');?>" type="text/javascript"></script>
-    <script src="<?php echo input::jsUrl('lib/ligerUI/js/plugins/ligerTextBox.js');?>" type="text/javascript"></script>
-    <script src="<?php echo input::jsUrl('lib/ligerUI/js/plugins/ligerCheckBox.js');?>" type="text/javascript"></script>
-    <script src="<?php echo input::jsUrl('lib/ligerUI/js/plugins/ligerComboBox.js');?>" type="text/javascript"></script>
-    <script src="<?php echo input::jsUrl('lib/ligerUI/js/plugins/ligerGrid.js');?>" type="text/javascript"></script>
-    <script src="<?php echo input::jsUrl('lib/ligerUI/js/plugins/ligerDateEditor.js');?>" type="text/javascript"></script>
-    <script src="<?php echo input::jsUrl('lib/ligerUI/js/plugins/ligerSpinner.js');?>" type="text/javascript"></script>
-    
+   
     <script type="text/javascript">
         // var DepartmentList = DepartmentData.Rows;       
         $(function(){ 
@@ -51,12 +40,14 @@
 
                 },
                 enabledEdit: true, 
-                clickToEdit: false, 
-                isScroll: false,  
+                clickToEdit: false,  
+                toolbar: { items: [
+                { text: '增加', click: addNewRow, icon: 'add' },
+                { line: true }]},
                 // data:EmployeeData,
                 url:'<?php echo input::site("admin/siteconfig/getPower");?>',
-                usePager:true,
-                width: '99%'
+                // usePager:true,
+                height: '99%'
             });   
         }
         function beginEdit() {
@@ -124,10 +115,8 @@
        
         
     </script>
-    <a class="l-button" style="width:100px;float:left; margin-left:6px;margin-top:10px;" onclick="addNewRow()">添加权限组</a>
-
     <div class="l-clear"></div>
-    <div id="maingrid" style="margin-top:10px"></div>
+    <div id="maingrid"></div>
 
     <div style="display:none;">
         <!-- g data total ttt --> 

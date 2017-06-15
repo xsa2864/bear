@@ -1,20 +1,3 @@
-    <link href="<?php echo input::jsUrl('lib/ligerUI/skins/Aqua/css/ligerui-all.css');?> " rel="stylesheet" type="text/css" />
-    <link href="<?php echo input::jsUrl('lib/ligerUI/skins/Gray/css/all.css');?> " rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" id="mylink"/>    
-
-    <script src="<?php echo input::jsUrl('lib/jquery/jquery-1.9.0.min.js');?>" type="text/javascript"></script>
-    <!-- <script src="<?php echo input::jsUrl('lib/ligerUI/js/ligerui.all.js');?>" type="text/javascript"></script>
-    -->
-    <script src="<?php echo input::jsUrl('lib/jquery.cookie.js');?>" type="text/javascript"></script>
-    <script src="<?php echo input::jsUrl('lib/json2.js');?>" type="text/javascript"></script>
-    <script src="<?php echo input::jsUrl('lib/ligerUI/js/core/base.js');?>" type="text/javascript"></script>
-    <script src="<?php echo input::jsUrl('lib/ligerUI/js/plugins/ligerGrid.js');?>" type="text/javascript"></script>
-    <script src="<?php echo input::jsUrl('lib/ligerUI/js/plugins/ligerDialog.js');?>" type="text/javascript"></script>
-    <script src="<?php echo input::jsUrl('lib/ligerUI/js/plugins/ligerTextBox.js');?>" type="text/javascript"></script>
-    <script src="<?php echo input::jsUrl('lib/ligerUI/js/plugins/ligerCheckBox.js');?>" type="text/javascript"></script>
-    <script src="<?php echo input::jsUrl('lib/ligerUI/js/plugins/ligerComboBox.js');?>" type="text/javascript"></script>
-    <script src="<?php echo input::jsUrl('lib/ligerUI/js/plugins/ligerDateEditor.js');?>" type="text/javascript"></script>
-    <script src="<?php echo input::jsUrl('lib/ligerUI/js/plugins/ligerSpinner.js');?>" type="text/javascript"></script>
     <script type="text/javascript">
     var grid = null;
     var pwhere = '';
