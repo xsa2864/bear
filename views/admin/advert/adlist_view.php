@@ -1,11 +1,4 @@
-    <script src="<?php echo input::jsUrl('lib/ligerUI/js/plugins/ligerDialog.js');?>" type="text/javascript"></script>
-    <script src="<?php echo input::jsUrl('lib/ligerUI/js/plugins/ligerTextBox.js');?>" type="text/javascript"></script>
-    <script src="<?php echo input::jsUrl('lib/ligerUI/js/plugins/ligerCheckBox.js');?>" type="text/javascript"></script>
-    <script src="<?php echo input::jsUrl('lib/ligerUI/js/plugins/ligerComboBox.js');?>" type="text/javascript"></script>
-    <script src="<?php echo input::jsUrl('lib/ligerUI/js/plugins/ligerGrid.js');?>" type="text/javascript"></script>
-    <script src="<?php echo input::jsUrl('lib/ligerUI/js/plugins/ligerDateEditor.js');?>" type="text/javascript"></script>
-    <script src="<?php echo input::jsUrl('lib/ligerUI/js/plugins/ligerSpinner.js');?>" type="text/javascript"></script>
-    
+   
     <script type="text/javascript">
         // var DepartmentList = DepartmentData.Rows;
         var sexData = [{ adtype: 1, text: '图片' }, { adtype: 0, text: '文本'}];
@@ -62,9 +55,6 @@
                 toolbar: { items: [
                 { text: '增加', click: addNewRow, icon: 'add' },
                 { line: true }]},
-                // clickToEdit: false, 
-                // isScroll: false, 
-                // data:EmployeeData,
                 url:'<?php echo input::site("admin/advert/getAdlist");?>',
                 // usePager:true,
                 height: '99%'
@@ -145,7 +135,3 @@
     </script>
     <div class="l-clear"></div>
     <div id="maingrid"></div>
-
-    <div style="display:none;">
-        <!-- g data total ttt --> 
-    </div>

@@ -16,6 +16,11 @@ $config  =  C('siteConfig') or die("找不到站点配置文件");
     <script src="<?php echo input::jsUrl('lib/json2.js');?>" type="text/javascript"></script>
     <script src="<?php echo input::jsUrl('lib/ligerUI/js/plugins/ligerResizable.js');?>" type="text/javascript"></script>
     <script src="<?php echo input::jsUrl('lib/ligerUI/js/plugins/ligerCheckBox.js');?>" type="text/javascript"></script>
+    <script src="<?php echo input::jsUrl('lib/ligerUI/js/plugins/ligerTextBox.js');?>" type="text/javascript"></script>
+    <script src="<?php echo input::jsUrl('lib/ligerUI/js/plugins/ligerDialog.js');?>" type="text/javascript"></script>
+    <script src="<?php echo input::jsUrl('lib/ligerUI/js/plugins/ligerComboBox.js');?>" type="text/javascript"></script>
+    <script src="<?php echo input::jsUrl('lib/ligerUI/js/plugins/ligerDateEditor.js');?>" type="text/javascript"></script>
+    <script src="<?php echo input::jsUrl('lib/ligerUI/js/plugins/ligerSpinner.js');?>" type="text/javascript"></script>
 </head>
 <body>    
     <!--页面主体-->

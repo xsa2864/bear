@@ -49,9 +49,6 @@
                 toolbar: { items: [
                 { text: '增加', click: addNewRow, icon: 'add' },
                 { line: true }]},
-                // enabledEdit: true, 
-                // clickToEdit: false, 
-                // isScroll: false,  
                 pageSize:30,
                 // rownumbers:true,
                 // data:EmployeeData,

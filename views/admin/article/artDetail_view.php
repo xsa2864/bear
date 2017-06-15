@@ -96,6 +96,7 @@
             echo '<a href="javascript:history.go(-1);" style="margin-left:20px; ">返回</a>';
         }
         ?> 
+        <br>
     </form>
 
 <style type="text/css">
