@@ -1,12 +1,3 @@
-    <link href="<?php echo input::jsUrl('lib/ligerUI/skins/Aqua/css/ligerui-all.css');?>    
-    " rel="stylesheet" type="text/css">
-    <link href="<?php echo input::jsUrl('lib/ligerUI/skins/Gray/css/all.css');?>    
-    " rel="stylesheet" type="text/css">
-    <script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>
-
-   
-   
-
     <style type="text/css">
            body{ font-size:12px;}
         .l-table-edit {}
@@ -105,6 +96,9 @@
             echo '<a href="javascript:history.go(-1);" style="margin-left:20px; ">返回</a>';
         }
         ?> 
+
+        <br>
+
     </form>
 
 <style type="text/css">

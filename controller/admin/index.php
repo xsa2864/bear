@@ -11,4 +11,11 @@ class Index_Controller extends Controller
       $this->template = new View('admin/index/welcome_view');
       $this->template->render();
    }
+
+   // 网站菜单栏
+   public function menu(){
+      $this->template = new View('admin/index/menu_view');
+      $this->template->render();
+   }
+
 }
