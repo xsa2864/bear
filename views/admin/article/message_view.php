@@ -1,5 +1,5 @@
     <script type="text/javascript">
-        // var DepartmentList = DepartmentData.Rows;       
+        var sexData = [{ status: 1, text: '正常' }, { status: 0, text: '禁用'}];
         $(function(){ 
             f_initGrid();
         });
@@ -7,26 +7,20 @@
         var manager, g;
         function f_initGrid()
         { 
-           g =  manager = $("#maingrid").ligerGrid({
+            g =  manager = $("#maingrid").ligerGrid({
                 columns: [
                 { display: '主键', name: 'id', width: 50, type: 'int',frozen:true },
-                { display: '组名',  width: 320, name: 'groupName', editor: { type: 'text' }},
-                { display: '说明', name: 'other', width: 120, type: 'int', editor: { type: 'text'} },
-                { display: '添加时间', name: 'addtime', type: 'date', width: 100 },
+                { display: '标题',  width: 120, name: 'title',editor: { type: 'text' } },
+                { display: '内容',  width: 420, name: 'content'},
+                { display: '邮箱',  width: 120, name: 'email' },                
+                { display: '添加时间', name: 'addtime', type: 'date', width: 140 },
                 { display: '操作', isSort: false, width: 120, render: function (rowdata, rowindex, value)
                 {
                     var h = "";
                     if (!rowdata._editing)
-                    {
-                        h += "<a href='javascript:beginEdit(" + rowindex + ")'>修改</a> ";
-                        h += "<a href='<?php echo input::site("admin/siteconfig/setPower?id=");?>"+rowdata.id+"'>权限设置</a> "; 
+                    {                       
                         h += "<a href='javascript:deleteRow(" + rowindex + ")'>删除</a> "; 
-                    }
-                    else
-                    {
-                        h += "<a href='javascript:endEdit(" + rowindex + ")'>提交</a> ";
-                        h += "<a href='javascript:cancelEdit(" + rowindex + ")'>取消</a> "; 
-                    }
+                    }                    
                     return h;
                 }
                 }
@@ -36,17 +30,14 @@
                     $("#txtrowindex").val(rowindex);
                 },
                 onToPrev: function(pageSize){
-
                 },
-                enabledEdit: true, 
-                clickToEdit: false,  
+                pageSize:30, 
                 toolbar: { items: [
-                { text: '增加', click: addNewRow, icon: 'add' },
+                { text: '查看详细内容', click: getSelected, icon: 'add' },
                 { line: true }]},
-                // data:EmployeeData,
-                url:'<?php echo input::site("admin/siteconfig/getPower");?>',
-                // usePager:true,
-                height: '99%'
+                url:'<?php echo input::site("admin/article/getMessage");?>',
+                usePager:true,
+                height:'99%'
             });   
         }
         function beginEdit() {
@@ -73,30 +64,18 @@
             var row = manager.getSelectedRow();
             if (!row) { alert('请选择行'); return; }    
             manager.endEdit(row);        
-            savePower(row)
+            saveArticle(row)
         }
-        function savePower(row){
-            $.post('<?php echo input::site("admin/siteconfig/savePower");?>',
-                manager.getSelectedRow(),
-                function(data){
-                    if(data==0){
-                        alert('保存失败');
-                        location.reload();
-                    }else if(data>1){
-                        location.reload();
-                    }
-                }
-            )
-        }
+        
         function endAllEdit()
         {
             manager.endEdit();
         }
         function deleteRow()
         { 
-            var row = manager.getSelectedRow();
             if(confirm("确定删除？")){                
-                $.post('<?php echo input::site("admin/siteconfig/delPower");?>',{'id':row.id},
+                var row = manager.getSelectedRow();
+                $.post('<?php echo input::site("admin/article/delMessage");?>',{'id':row.id},
                     function(data){
                         if(data){
                             manager.deleteSelectedRow();
@@ -107,18 +86,21 @@
             }
         }
         var newrowid = 100;
-        function addNewRow()
-        {
-            manager.addEditRow();
-        }         
-       
         
+        function getSelected()
+        { 
+            var row = manager.getSelectedRow();
+            if (!row) { alert('请选择行'); return; }
+            alert(JSON.stringify(row.content));
+        }
+        function getData()
+        { 
+            var data = manager.getData();
+            alert(JSON.stringify(data));
+        } 
     </script>
 
     <div class="l-clear"></div>
     <div id="maingrid"></div>
+    <div style="display:none;"></div>
 
-
-    <div style="display:none;">
-        <!-- g data total ttt --> 
-    </div>

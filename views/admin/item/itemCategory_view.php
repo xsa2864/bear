@@ -1,12 +1,11 @@
     <script type="text/javascript">
         var sexData = [{ status: 1, text: '正常' }, { status: 0, text: '禁用'}];
-        var isindex = [{ isindex: 1, text: '是' }, { isindex: 0, text: '否'}];
         $(function(){ 
             $.post('<?php echo input::site("admin/menu/getMenuList");?>',function(data){
                 if(data){
                     f_initGrid(data);
                 }
-            },'json')            
+            },'json') 
         });
        
         var manager, g;
@@ -15,7 +14,7 @@
            g =  manager = $("#maingrid").ligerGrid({
                 columns: [
                 { display: '主键', name: 'id', width: 50, type: 'int',frozen:true },
-                { display: '分类名称',  width: 320, name: 'catname',
+                { display: '分类名称',  width: 320, name: 'cname',
                     editor: { type: 'text' }
                 },
                 { display: '是否显二级菜单', name: 'menuID', width: 120, type:'text',
@@ -37,8 +36,6 @@
                         return '禁用';
                     }
                 },                
-                { display: '排序', name: 'sort', width: 40, type: 'int',editor: { type: 'text' }},
-                { display: '添加时间', name: 'addtime', type: 'date', width: 200 },
                 { display: '操作', isSort: false, width: 120, render: function (rowdata, rowindex, value)
                 {
                     var h = "";
@@ -69,7 +66,7 @@
                 toolbar: { items: [
                 { text: '增加', click: addNewRow, icon: 'add' },
                 { line: true }]},
-                url:'<?php echo input::site("admin/article/getArtlist");?>',
+                url:'<?php echo input::site("admin/item/getCategory");?>',
                 usePager:true,
                 height: '99%'
             });   
@@ -98,10 +95,10 @@
             var row = manager.getSelectedRow();
             if (!row) { alert('请选择行'); return; }    
             manager.endEdit(row);        
-            saveArticle(row)
+            saveCategory(row)
         }
-        function saveArticle(row){
-            $.post('<?php echo input::site("admin/article/saveArticle");?>',
+        function saveCategory(row){
+            $.post('<?php echo input::site("admin/item/saveCategory");?>',
                 manager.getSelectedRow(),
                 function(data){
                     if(data==0){
@@ -120,7 +117,7 @@
         function deleteRow()
         { 
             var row = manager.getSelectedRow();
-            $.post('<?php echo input::site("admin/article/delArticle");?>',{'id':row.id},
+            $.post('<?php echo input::site("admin/item/delCategory");?>',{'id':row.id},
                 function(data){
                     if(data){
                         manager.deleteSelectedRow();

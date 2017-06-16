@@ -257,9 +257,9 @@
 
 <div class="q tb">
 	<div class="flex_1 c_btn">
-    	<a href="#">人才招聘  ></a>
-        <a href="#">留言反馈  ></a>
-        <a href="#">联系方式  ></a>
+    	<a href="<?php echo input::site('index/index/detail?id=11');?>">人才招聘  ></a>
+        <a href="<?php echo input::site('index/index/writeMsg');?>">留言反馈  ></a>
+        <a href="<?php echo input::site('index/index/detail?id=12');?>">联系方式  ></a>
     </div>
     <div class="qr">
         <?php

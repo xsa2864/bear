@@ -41,6 +41,7 @@ class Article_Controller extends Template_Controller
        $data['catname'] = P("catname");
        $data['status'] = P("status");
        $data['sort'] = P("sort");
+       $data['menuID'] = P("menuID");
        $rs = 0;
        if(empty($id)){
           $data['addtime'] = time();
@@ -48,6 +49,7 @@ class Article_Controller extends Template_Controller
        }else{
           $rs = M("article_cat")->update($data,"id=$id");
        }
+       menu_ext::toArray($data['menuID'],$id,$data['catname']);
        echo $rs;
     }
     // 删除分类
@@ -143,6 +145,39 @@ class Article_Controller extends Template_Controller
        $rs = 0;
        if(!empty($id)){
           $rs = M("article")->update($data,"id=$id");
+       }
+       echo $rs;
+    }
+    // 留言页面
+    public function message(){
+        $this->template->content = new View('admin/article/message_view');
+        $this->template->render();
+    }
+    // 获取留言信息
+    public function getMessage(){
+       $page = P("page",1);
+       $pagesize = P("pagesize",10);
+       $snum = ($page-1)*$pagesize;
+       $sql = "SELECT * FROM tf_leaving_msg a where a.status!=-1 order by a.addtime desc limit ".$snum.",".$pagesize."";
+       $result = M()->query($sql);
+       // $result = M('advert_position')->where(array('status'=>1))->orderby('addtime desc')->limit($snum,$pagesize)->execute();
+       foreach($result as $value)
+       {
+           $value->addtime = date("Y-m-d H:i:s",$value->addtime);
+       }
+       
+       $data['Rows'] = $result;
+       $data['Total'] = M("leaving_msg")->getAllCount("status!=-1");
+       echo json_encode($data);
+    }
+    // 删除留言
+    public function delMessage(){
+       $id = P("id",'');
+       $data = array();
+       $data['status'] = -1;
+       $rs = 0;
+       if(!empty($id)){
+          $rs = M("leaving_msg")->update($data,"id=$id");
        }
        echo $rs;
     }

@@ -141,5 +141,46 @@ class Siteconfig_Controller extends Template_Controller
       }
       echo json_encode($re_msg);
    }
+   // 首页
+   public function menu(){      
+      $this->template->content = new View('admin/siteconfig/menu_view');
+      $this->template->render();
+   }
+   // 获取菜单数据
+   public function getMenu(){
+      $page = P("page",1);
+      $pagesize = P("pagesize",20);
+      $snum = ($page-1)*$pagesize;
+      //广告位列表     
+      $sql = "select * from tf_index_menu where status!=-1 order by sort asc limit ".$snum.",".$pagesize."";
+      $result = M()->query($sql);
+      // $result = M('advert_position')->where(array('status'=>1))->orderby('addtime desc')->limit($snum,$pagesize)->execute();
+      
+      $data['Rows'] = $result;
+      $data['Total'] = M("index_menu")->getAllCount("status!=-1");
+      echo json_encode($data);
+   }
+   // 保存配置
+   public function saveMenu(){
+      $id = P("id",'');
+      $re_msg['success'] = 0;
+      $re_msg['msg'] = '保存失败';
 
+      $data['name']     = P("name",'');
+      $data['url']      = common_ext::getsimpicurl(P("url",''));
+      $data['sort']     = P("sort",'');
+      $data['status']   = P("status",'');
+      $rs = 0;
+      if(empty($id)){
+         $rs = M("index_menu")->insert($data);
+      }else{
+         $rs = M("index_menu")->update($data,"id=$id");
+      }
+      if($rs){
+         $re_msg['success'] = 1;
+         $re_msg['msg'] = '保存成功';
+      }
+      echo json_encode($re_msg);
+   }
+   
 }

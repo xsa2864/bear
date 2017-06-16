@@ -1,56 +1,37 @@
     <script type="text/javascript">
-        var sexData = [{ status: 1, text: '正常' }, { status: 0, text: '禁用'}];
-        var isindex = [{ isindex: 1, text: '是' }, { isindex: 0, text: '否'}];
+        var sexData = [{ status: 1, text: '正架' }, { status: 0, text: '下架'}];
         $(function(){ 
-            $.post('<?php echo input::site("admin/menu/getMenuList");?>',function(data){
-                if(data){
-                    f_initGrid(data);
-                }
-            },'json')            
+            f_initGrid();
         });
        
         var manager, g;
-        function f_initGrid(menuList)
+        function f_initGrid()
         { 
-           g =  manager = $("#maingrid").ligerGrid({
+            g =  manager = $("#maingrid").ligerGrid({
                 columns: [
                 { display: '主键', name: 'id', width: 50, type: 'int',frozen:true },
-                { display: '分类名称',  width: 320, name: 'catname',
-                    editor: { type: 'text' }
-                },
-                { display: '是否显二级菜单', name: 'menuID', width: 120, type:'text',
-                    editor: { type: 'select', data: menuList, valueColumnName: 'id', displayColumnName: 'name' }, render: function (item)
-                    {
-                        for (var i = 0; i < menuList.length; i++)
-                        {
-                            if (menuList[i]['id'] == item.menuID)
-                                return menuList[i]['name']
-                        }
-                        return '';
-                    }
-                },
-                { display: '状态', width: 80, name: 'status',type:'int',
+                { display: '商品名称',  width: 220, name: 'title',editor: { type: 'text' } },
+                { display: '商品简介',  width: 320, name: 'subtitle'},
+                { display: '商家信息',  width: 220, name: 'shopinfo'},
+                { display: '商品分类',  width: 130, name: 'cname' },
+                { display: '有效时间',  width: 120, name: 'validtime'},
+                { display: '使用时间',  width: 120, name: 'usetime'},
+                { display: '状态', width: 60, name: 'status',type:'int',
                     editor: { type: 'select', data: sexData, valueColumnName: 'status' },
                     render: function (item)
                     {
-                        if (parseInt(item.status) == 1) return '正常';
-                        return '禁用';
+                        if (parseInt(item.status) == 1) return '上架';
+                        return '下架';
                     }
-                },                
-                { display: '排序', name: 'sort', width: 40, type: 'int',editor: { type: 'text' }},
-                { display: '添加时间', name: 'addtime', type: 'date', width: 200 },
+                },   
+                { display: '添加时间', name: 'addtime', type: 'date', width: 140 },
                 { display: '操作', isSort: false, width: 120, render: function (rowdata, rowindex, value)
                 {
                     var h = "";
                     if (!rowdata._editing)
                     {
-                        h += "<a href='javascript:beginEdit(" + rowindex + ")'>修改</a> ";
+                        h += "<a href='<?php echo input::site("admin/item/itemAdd?id=");?>"+rowdata.id+"'>编辑详情</a> "; 
                         h += "<a href='javascript:deleteRow(" + rowindex + ")'>删除</a> "; 
-                    }
-                    else
-                    {
-                        h += "<a href='javascript:endEdit(" + rowindex + ")'>提交</a> ";
-                        h += "<a href='javascript:cancelEdit(" + rowindex + ")'>取消</a> "; 
                     }
                     return h;
                 }
@@ -61,17 +42,16 @@
                     $("#txtrowindex").val(rowindex);
                 },
                 onToPrev: function(pageSize){
-
-                },
-                enabledEdit: true, 
-                clickToEdit: false,        
-                pageSize:20,
+                },                 
                 toolbar: { items: [
                 { text: '增加', click: addNewRow, icon: 'add' },
                 { line: true }]},
-                url:'<?php echo input::site("admin/article/getArtlist");?>',
+                pageSize:30,
+                // rownumbers:true,
+                // data:EmployeeData,
+                url:'<?php echo input::site("admin/item/getItemList");?>',
                 usePager:true,
-                height: '99%'
+                height:'99%'
             });   
         }
         function beginEdit() {
@@ -101,7 +81,7 @@
             saveArticle(row)
         }
         function saveArticle(row){
-            $.post('<?php echo input::site("admin/article/saveArticle");?>',
+            $.post('<?php echo input::site("admin/item/saveArticle");?>',
                 manager.getSelectedRow(),
                 function(data){
                     if(data==0){
@@ -120,7 +100,7 @@
         function deleteRow()
         { 
             var row = manager.getSelectedRow();
-            $.post('<?php echo input::site("admin/article/delArticle");?>',{'id':row.id},
+            $.post('<?php echo input::site("admin/item/delItem");?>',{'id':row.id},
                 function(data){
                     if(data){
                         manager.deleteSelectedRow();
@@ -132,7 +112,7 @@
         var newrowid = 100;
         function addNewRow()
         {
-            manager.addEditRow();
+            location.href = '<?php echo input::site("admin/item/itemAdd");?>';
         } 
          
         function getSelected()
@@ -147,6 +127,8 @@
             alert(JSON.stringify(data));
         } 
     </script>
-  
+
     <div class="l-clear"></div>
     <div id="maingrid"></div>
+    <div style="display:none;"></div>
+

@@ -59,4 +59,9 @@ class Menu_Controller extends Controller
       }
       return $arr;
    }
+   // 获取菜单信息
+   public function getMenuList(){
+      $result = M("index_menu")->select("id,name")->where("status=1")->execute();
+      echo json_encode($result);
+   }
 }

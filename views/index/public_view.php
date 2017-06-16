@@ -27,9 +27,7 @@
 					<div class="search flex_1">
 						<input placeholder="输入关键词搜索"/>
 					</div>
-					<div class="h1 cf">
-						<a href="javascript:;">APP</a>
-					</div>
+					
 				</div>
 			</div>
 		</div>
@@ -38,60 +36,30 @@
 	<div class="index_nav">
 		<div class="q">
 			<ul class="nav_cen">
-				<li class="home">
-					<a href="javascript:;"> <i></i>
-						&nbsp;&nbsp;首页
-					</a>
-				</li>
-				<li> <i></i>
-					<a href="#">众合智慧</a>
-					<div class="result_mun" style="display:none;">
-						<p>
-							<a href="#">企业简介</a>
-						</p>
-						<p>
-							<a class="on" href="#">智慧学院</a>
-						</p>
-						<p>
-							<a href="#">资产管理</a>
-						</p>
-						<p>
-							<a href="#">移动社交</a>
-						</p>
-						<p>
-							<a href="#">导师团队</a>
-						</p>
-					</div>
-				</li>
-				<li>
-					<a href="#">
-						<i></i>
-						精品课程
-					</a>
-					<div class="result_mun" style="display:none;">
-						<p>
-							<a href="#">企业简介</a>
-						</p>
-						<p>
-							<a class="on" href="#">智慧学院</a>
-						</p>
-						<p>
-							<a href="#">资产管理</a>
-						</p>
-						<p>
-							<a href="#">移动社交</a>
-						</p>
-						<p>
-							<a href="#">导师团队</a>
-						</p>
-					</div>
-				</li>
-				<li>
-					<a href="#"><i></i>新闻活动</a>
-				</li>
-				<li>
-					<a href="#"><i></i>联系我们</a>
-				</li>
+				<?php
+				if(!empty($menu)){
+					foreach ($menu as $key => $value) {
+						$str = '';
+						$purl = '';
+						$url = input::site($value->url);
+						if(!empty($value->child_menu)){
+							$child = json_decode($value->child_menu);
+							$str = '<div class="result_mun" style="display:none;">';
+							foreach ($child as $keys => $ch) {
+								$churl = $url.'?type='.$ch->id;								
+								$str .= '<p><a href='.$churl.'>'.$ch->name.'</a></p>';
+								if($keys){
+									$purl = $churl;
+								}
+							}		
+							$str .= '</div>';					
+						}				
+						$url = 	empty($purl) ? $url : $purl;	
+						$home = $key == 0 ? ' class="home"':'';
+						echo '<li '.$home.'><a href='.$url.'> <i></i>'.$value->name.'</a>'.$str.'</li>';
+					}
+				}
+				?>
 			</ul>
 		</div>
 	</div>
@@ -107,12 +75,10 @@
 			<dl class="footer2 cf">
 			<?php
             if(!empty($footer)){
-                foreach ($footer as $key =>
-				$value) {
+                foreach ($footer as $key => $value) {
                 ?>
 				<dd>
-					<a href="<?php echo $value->
-						url;?>">
+					<a href="<?php echo $value->url;?>">
 						<img src="<?php echo input::site($value->imgUrl);?>" style="width: 240px;height: 60px;"/></a>
 				</dd>
 				<?php
@@ -127,9 +93,9 @@
 		<div class="q">
 			<div class="footer">
 				<div class="h1">
-					闽ICP备11017824号-4 / 闽ICP证130164号  福州市公安局备案编号:110105000501
+					<?php echo $icp->icp;?>
 					<br/>
-					Copyright © 2006-2016 众合智慧
+					<?php echo $icp->copyright;?>
 				</div>
 			</div>
 		</div>

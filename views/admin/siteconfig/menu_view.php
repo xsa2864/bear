@@ -1,44 +1,27 @@
     <script type="text/javascript">
-        var sexData = [{ status: 1, text: '正常' }, { status: 0, text: '禁用'}];
-        var isindex = [{ isindex: 1, text: '是' }, { isindex: 0, text: '否'}];
+        // var DepartmentList = DepartmentData.Rows;
+        var sexData = [{ status: 1, text: '启用' }, { status: 0, text: '不启用'}];
         $(function(){ 
-            $.post('<?php echo input::site("admin/menu/getMenuList");?>',function(data){
-                if(data){
-                    f_initGrid(data);
-                }
-            },'json')            
+            f_initGrid();
         });
        
         var manager, g;
-        function f_initGrid(menuList)
+        function f_initGrid()
         { 
            g =  manager = $("#maingrid").ligerGrid({
                 columns: [
                 { display: '主键', name: 'id', width: 50, type: 'int',frozen:true },
-                { display: '分类名称',  width: 320, name: 'catname',
-                    editor: { type: 'text' }
-                },
-                { display: '是否显二级菜单', name: 'menuID', width: 120, type:'text',
-                    editor: { type: 'select', data: menuList, valueColumnName: 'id', displayColumnName: 'name' }, render: function (item)
-                    {
-                        for (var i = 0; i < menuList.length; i++)
-                        {
-                            if (menuList[i]['id'] == item.menuID)
-                                return menuList[i]['name']
-                        }
-                        return '';
-                    }
-                },
+                { display: '名称',  width: 120, name: 'name',editor: { type: 'text' }},
+                { display: 'url', name: 'url', width: 220, type: 'text', editor: { type: 'text'} },
+                { display: '排序', name: 'sort', width: 60, type: 'int', editor: { type: 'int'} }, 
                 { display: '状态', width: 80, name: 'status',type:'int',
                     editor: { type: 'select', data: sexData, valueColumnName: 'status' },
                     render: function (item)
                     {
-                        if (parseInt(item.status) == 1) return '正常';
-                        return '禁用';
+                        if (parseInt(item.status) == 1) return '启用';
+                        return '不启用';
                     }
-                },                
-                { display: '排序', name: 'sort', width: 40, type: 'int',editor: { type: 'text' }},
-                { display: '添加时间', name: 'addtime', type: 'date', width: 200 },
+                },
                 { display: '操作', isSort: false, width: 120, render: function (rowdata, rowindex, value)
                 {
                     var h = "";
@@ -64,14 +47,12 @@
 
                 },
                 enabledEdit: true, 
-                clickToEdit: false,        
-                pageSize:20,
                 toolbar: { items: [
                 { text: '增加', click: addNewRow, icon: 'add' },
                 { line: true }]},
-                url:'<?php echo input::site("admin/article/getArtlist");?>',
-                usePager:true,
+                url:'<?php echo input::site("admin/siteconfig/getMenu");?>',
                 height: '99%'
+
             });   
         }
         function beginEdit() {
@@ -98,10 +79,10 @@
             var row = manager.getSelectedRow();
             if (!row) { alert('请选择行'); return; }    
             manager.endEdit(row);        
-            saveArticle(row)
+            saveMenu(row)
         }
-        function saveArticle(row){
-            $.post('<?php echo input::site("admin/article/saveArticle");?>',
+        function saveMenu(row){
+            $.post('<?php echo input::site("admin/siteconfig/saveMenu");?>',
                 manager.getSelectedRow(),
                 function(data){
                     if(data==0){
@@ -119,15 +100,17 @@
         }
         function deleteRow()
         { 
-            var row = manager.getSelectedRow();
-            $.post('<?php echo input::site("admin/article/delArticle");?>',{'id':row.id},
-                function(data){
-                    if(data){
-                        manager.deleteSelectedRow();
-                    }else{
-                        alert('删除失败');
-                    }
-            })            
+            if(confirm("确定删除？")){                
+                var row = manager.getSelectedRow();
+                $.post('<?php echo input::site("admin/siteConfig/delMenu");?>',{'id':row.id},
+                    function(data){
+                        if(data){
+                            manager.deleteSelectedRow();
+                        }else{
+                            alert('删除失败');
+                        }
+                })            
+            }
         }
         var newrowid = 100;
         function addNewRow()
@@ -147,6 +130,7 @@
             alert(JSON.stringify(data));
         } 
     </script>
-  
+
     <div class="l-clear"></div>
     <div id="maingrid"></div>
+
