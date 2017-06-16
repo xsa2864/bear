@@ -1,8 +1,5 @@
-config/
-config
-upload/
-upload
-logs/
-logs
-xs
+/config
+/upload
+/logs
+/xs
 .settings
