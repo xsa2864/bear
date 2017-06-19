@@ -1,5 +1,6 @@
-config
-upload
-logs
-xs
+/config
+/upload
+/logs
+/xs
 .settings
+/library/admin/umeditor/php/upload/
