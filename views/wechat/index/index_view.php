@@ -60,9 +60,16 @@
         </ul>
     </div>
 	<div class="index_banner">
-		<a href="#"><img src="images/index_banner01.png" /></a>
-		<a href="#"><img src="images/index_banner02.png" /></a>
-		<a href="#"><img src="images/index_banner03.png" /></a>
+    <?php
+    if(!empty($centerPic->pics)){
+        $arr = json_decode($centerPic->pics,1);
+        foreach ($arr as $key => $value) {
+            $url = empty($value['url']) ? 'javascript:;':$value['url'];
+            $img = input::site($value['imgUrl']);
+            echo '<a href='.$url.'><img src='.$img.' /></a>';
+        }
+    }
+    ?>
 	</div>
 	
 	 <div class="index_main" style="display:none;">

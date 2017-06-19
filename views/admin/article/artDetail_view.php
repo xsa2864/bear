@@ -51,14 +51,61 @@
                     </td>
                     <td align="left"></td>
                 </tr>
-                
                 <tr>
-                    <td align="right" class="l-table-edit-td">上传图片:</td>
+                    <td align="right" class="l-table-edit-td">讲师:</td>
+                    <td align="left" class="l-table-edit-td">
+                        <div class="l-text" style="width: 178px;">
+                            <input name="teacher" type="text" id="teacher" ltype="text" validate="{required:true,minlength:3,maxlength:10}" class="l-text-field" ligeruiid="txtName" style="width: 174px;" value="<?php echo $list->teacher;?>">    
+                            <div class="l-text-l"></div>
+                            <div class="l-text-r"></div>
+                        </div>
+                    </td>
+                    <td align="left"></td>
+                </tr>
+                <tr>
+                    <td align="right" class="l-table-edit-td">地址:</td>
+                    <td align="left" class="l-table-edit-td">
+                        <div class="l-text" style="width: 178px;">
+                            <input name="address" type="text" id="address" ltype="text" validate="{required:true,minlength:3,maxlength:10}" class="l-text-field" ligeruiid="txtName" style="width: 174px;" value="<?php echo $list->address;?>">  
+                        </div>
+                    </td>
+                    <td align="left"></td>
+                </tr>
+                <tr>
+                    <td align="right" class="l-table-edit-td">开始/结束时间:</td>
+                    <td align="left" class="l-table-edit-td">
+                        <input name="stime" type="datetime-local" id="stime" ltype="text" ligeruiid="txtName" style="width: 174px;" value="<?php echo date("Y-m-dTH:i",$list->stime);?>">  
+                            ~
+                        <input name="etime" type="datetime-local" id="etime" ltype="text" ligeruiid="txtName" style="width: 174px;" value="<?php echo date("Y/m/d H:i",$list->etime);?>">  
+                    </td>
+                    <td align="left"></td>
+                </tr>
+                <tr>
+                    <td align="right" class="l-table-edit-td">参与总人数:</td>
+                    <td align="left" class="l-table-edit-td">
+                        <div class="l-text" style="width: 178px;">
+                            <input name="total" type="number" id="total" ltype="text" validate="{required:true,minlength:3,maxlength:10}" class="l-text-field" ligeruiid="txtName" style="width: 174px;" value="<?php echo $list->total;?>"> 
+                        </div>
+                    </td>
+                    <td align="left"></td>
+                </tr>
+                <tr>
+                    <td align="right" class="l-table-edit-td">上传列表图:</td>
                     <td align="left" class="l-table-edit-td">
                         <img src="<?php echo input::site($list->thumb);?>" id="showThumb">
                         <input type="hidden" name="thumb" id="thumb" value="<?php echo $list->thumb;?>">
                         <input type="file" id="file" name="file" ltype="text" />    
-                        <input type="button" value=" 上传 " onclick="upload_img()"/>    
+                        <input type="button" value=" 上传 " onclick="upload_img(1)"/>    
+                    </td>
+                    <td align="left"></td>
+                </tr>
+                <tr>
+                    <td align="right" class="l-table-edit-td">上传主图:</td>
+                    <td align="left" class="l-table-edit-td">
+                        <img src="<?php echo input::site($list->mainPic);?>" id="showPic">
+                        <input type="hidden" name="mainPic" id="mainPic" value="<?php echo $list->mainPic;?>">
+                        <input type="file" id="files" name="files" ltype="text" />    
+                        <input type="button" value=" 上传 " onclick="upload_img(2)"/>    
                     </td>
                     <td align="left"></td>
                 </tr>
@@ -105,9 +152,13 @@
 #form1{
     margin: 20px 20px;
 }
-img {
-    width: 60px;
-    height: 60px;
+#showThumb{
+    width: 80px;
+    max-height: 50px;
+}
+#showPic{
+    width: 80px;
+    height: 80px;
 }
 </style>
 <script type="text/javascript">
@@ -132,27 +183,47 @@ $("#Button1").on('click',function(){
 })
 
 // 上传图片
-function upload_img(){
+function upload_img(id){
     var file =  $("#file").val();
-    if(file=='' || file == null){
+    var files =  $("#files").val();
+
+    if((file =='' || file == null) && id==1){
+        alert("请选择上传文件");
+        return false;
+    }else if((files =='' || files == null) && id==2){
         alert("请选择上传文件");
         return false;
     }else{      
-        var form=document.getElementById("form1");
-        var formdata=new FormData(form);
+        var upfile = '';
+        if(id==1){
+            upfile = $("#file")[0].files[0];
+        }else{
+            upfile = $("#files")[0].files[0];
+        }        
+        // var formData = new FormData(upfile);
+        // console.log(formData);
+        // console.log(formData);
+        // var form = document.getElementById("form1");
+        var formData = new FormData();
+        formData.append('file',upfile);
        
         $.ajax({
             url: "<?php echo input::site('admin/advert/upload');?>",
             type: "POST",
-            data: formdata,
+            data: formData,
             dataType:'json',
             processData : false, // 不处理发送的数据，因为data值是Formdata对象，不需要对数据做处理
             contentType : false, // 不设置Content-type请求头
             success: function(data) {
                 if(data.success==1){
                     // $(".imgList").append($(".imgList>div:first-child").clone());
-                    $("#thumb").val(data.msg);
-                    $("#showThumb").attr('src',data.msg);
+                    if(id==1){
+                        $("#thumb").val(data.msg);
+                        $("#showThumb").attr('src',data.msg);
+                    }else{
+                        $("#mainPic").val(data.msg);
+                        $("#showPic").attr('src',data.msg);
+                    }
                 }else{
                     alert(data.msg);
                 }
@@ -189,4 +260,5 @@ um.ready(function() {
     UM.getEditor('container').setWidth(1000);
     
 });
+
 </script>
