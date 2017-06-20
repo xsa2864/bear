@@ -14,8 +14,7 @@
     </style>
     <script type="text/javascript">      
          var manager, g;
-        $(function ()
-        {
+        $(function (){
            manager = $("#tree1").ligerTree({
                 url: '<?php echo input::site("admin/menu/getPower");?>',
                 slide: false,

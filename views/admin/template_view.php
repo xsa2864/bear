@@ -20,7 +20,7 @@ $config  =  C('siteConfig') or die("找不到站点配置文件");
     <script src="<?php echo input::jsUrl('lib/jquery.cookie.js');?>" type="text/javascript"></script>
     <script src="<?php echo input::jsUrl('lib/json2.js');?>" type="text/javascript"></script>
     <script src="<?php echo input::jsUrl('lib/ligerUI/js/plugins/ligerGrid.js');?>" type="text/javascript"></script>
-
+    <script src="<?php echo input::jsUrl('lib/ligerUI/js/plugins/ligerTree.js');?>" type="text/javascript"></script>
 </head>
 <body>    
     <!--页面主体-->
