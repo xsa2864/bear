@@ -12,10 +12,9 @@
                 { display: '主键', name: 'id', width: 50, type: 'int',frozen:true },
                 { display: '商品名称',  width: 220, name: 'title',editor: { type: 'text' } },
                 { display: '商品简介',  width: 320, name: 'subtitle'},
-                { display: '商家信息',  width: 220, name: 'shopinfo'},
-                { display: '商品分类',  width: 130, name: 'cname' },
-                { display: '有效时间',  width: 120, name: 'validtime'},
-                { display: '使用时间',  width: 120, name: 'usetime'},
+                { display: '商品分类',  width: 100, name: 'cname' },
+                { display: '开始时间', name: 'stime', type: 'date', width: 120 },
+                { display: '结束时间', name: 'etime', type: 'date', width: 120 },
                 { display: '状态', width: 60, name: 'status',type:'int',
                     editor: { type: 'select', data: sexData, valueColumnName: 'status' },
                     render: function (item)

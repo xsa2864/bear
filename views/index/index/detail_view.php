@@ -1,6 +1,8 @@
 <div class="q path">
-	当前位置：
-    <a href="javascript:;"><?php echo $content->catname;?></a>
+    当前位置：
+    <a href="javascript:;"><?php echo $parent_name;?></a>
+       > 
+    <a href="javascript:;"><?php echo $child_name;?></a>
 </div>
 
 <div class="q list">

@@ -95,7 +95,7 @@ class Advert_Controller extends Template_Controller
 
    }
    // 上传文件
-   public function upload(){   
+   public function upload(){  
       $re_msg['success'] = 0;
       $re_msg['msg'] = '';
       $upload = upload::getClass();

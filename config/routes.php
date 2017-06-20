@@ -1,5 +1,6 @@
 <?php 
 return array(
-	'_default'		=> 'index/index',
+	'_default'		=> 'wechat/index/index',
+	'index'			=> 'wechat/index/index',
 	'admin'			=> 'admin/login'
 );

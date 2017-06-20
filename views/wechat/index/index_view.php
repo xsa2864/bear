@@ -50,19 +50,26 @@
             <li class="flex_1 "><a href="#"><i></i><font>预约游泳</font></a></li>
             <li class="flex_1"><a href="#"><i></i><font>预约推拿</font></a></li>
             <li class="flex_1"><a href="#"><i></i><font>预约配送</font></a></li>
-            <li class="flex_1"><a href="#"><i></i><font>快递办卡</font></a></li>
+            <li class="flex_1"><a href="<?php echo input::site('wechat/card/cardList');?>"><i></i><font>快递办卡</font></a></li>
         </ul>
         <ul class="tb index_list">
             <li class="flex_1 on"><a href="#"><i></i><font>国内名品</font></a></li>
             <li class="flex_1"><a href="#"><i></i><font>跨境商城</font></a></li>
             <li class="flex_1"><a href="#"><i></i><font>熊猫专区</font></a></li>
-            <li class="flex_1"><a href="#"><i></i><font>沙龙讲座</font></a></li>
+            <li class="flex_1"><a href="<?php echo input::site('wechat/salon/salonIndex');?>"><i></i><font>沙龙讲座</font></a></li>
         </ul>
     </div>
 	<div class="index_banner">
-		<a href="#"><img src="images/index_banner01.png" /></a>
-		<a href="#"><img src="images/index_banner02.png" /></a>
-		<a href="#"><img src="images/index_banner03.png" /></a>
+    <?php
+    if(!empty($centerPic->pics)){
+        $arr = json_decode($centerPic->pics,1);
+        foreach ($arr as $key => $value) {
+            $url = empty($value['url']) ? 'javascript:;':$value['url'];
+            $img = input::site($value['imgUrl']);
+            echo '<a href='.$url.'><img src='.$img.' /></a>';
+        }
+    }
+    ?>
 	</div>
 	
 	 <div class="index_main" style="display:none;">

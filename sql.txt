@@ -1,0 +1,12 @@
+ALTER TABLE `tf_salon_enroll`
+	ADD COLUMN `alid` INT(11) NOT NULL DEFAULT '0' COMMENT '文章（沙龙）id' AFTER `member_id`;
+
+ALTER TABLE `tf_item`
+	CHANGE COLUMN `validtime` `stime` INT(11) NOT NULL DEFAULT '0' COMMENT '有效时间 开始时间' AFTER `content`,
+	ADD COLUMN `etime` INT(11) NOT NULL DEFAULT '0' COMMENT '有效时间 结束时间' AFTER `stime`,
+	DROP COLUMN `shopinfo`,
+	DROP COLUMN `usetime`;
+
+ALTER TABLE `tf_item`
+	ADD COLUMN `thumb` VARCHAR(200) NULL DEFAULT NULL COMMENT '列表图' AFTER `catid`,
+	CHANGE COLUMN `mainPic` `mainPic` VARCHAR(200) NULL DEFAULT NULL COMMENT '主图' AFTER `thumb`;

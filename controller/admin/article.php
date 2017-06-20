@@ -41,7 +41,6 @@ class Article_Controller extends Template_Controller
        $data['catname'] = P("catname");
        $data['status'] = P("status");
        $data['sort'] = P("sort");
-       $data['menuID'] = P("menuID");
        $rs = 0;
        if(empty($id)){
           $data['addtime'] = time();
@@ -82,7 +81,13 @@ class Article_Controller extends Template_Controller
         $data['catid'] = P("catid");
         $data['title'] = P("title");
         $data['subtitle'] = P("subtitle");
+        $data['total'] = P("total");
+        $data['teacher'] = P("teacher");
+        $data['address'] = P("address");
+        $data['stime'] = strtotime(P("stime"));
+        $data['etime'] = strtotime(P("etime"));
         $data['thumb'] = common_ext::getsimpicurl(P("thumb",''));
+        $data['mainPic'] = common_ext::getsimpicurl(P("mainPic",''));
         $data['content'] =  P("content");//htmlspecialchars();
         $data['status'] = P("status");
         $rs = 0;
