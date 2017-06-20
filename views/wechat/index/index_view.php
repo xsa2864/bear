@@ -45,12 +45,13 @@
             </ul>
         </div>
     </div>
-    <div class="index_nav toggle_on" id="index_nav">
+    
+    <div class="index_nav">
         <ul class="tb index_list">
             <li class="flex_1 "><a href="#"><i></i><font>预约游泳</font></a></li>
             <li class="flex_1"><a href="#"><i></i><font>预约推拿</font></a></li>
             <li class="flex_1"><a href="#"><i></i><font>预约配送</font></a></li>
-            <li class="flex_1"><a href="<?php echo input::site('wechat/card/cardList');?>"><i></i><font>快递办卡</font></a></li>
+            <li class="flex_1"><a href="<?php echo input::site('wechat/card/cardList');?>"><i></i><font>快速办卡</font></a></li>
         </ul>
         <ul class="tb index_list">
             <li class="flex_1 on"><a href="#"><i></i><font>国内名品</font></a></li>
@@ -71,16 +72,7 @@
     }
     ?>
 	</div>
-	
-	 <div class="index_main" style="display:none;">
-	 </div>
-	 <div class="index_main" style="display:none;">
-	 </div>
-	 <div class="index_main" style="display:none;">
-	 </div>
-	 <div class="index_main" style="display:none;">
-	 </div>
-	 <div class="index_main">
+	<div class="index_main">
 	 	<h3 class="back2">			
         	<i class="arrow_left"></i>
             <a class="shop_local" href="#"><span >国内名品</span></a>

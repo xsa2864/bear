@@ -23,12 +23,14 @@ $(function(){
 		})		//.eq(0).trigger('click');
 	}
 	// 切换界面
+	/*
 	$('.index_nav li').on('click',function(){
 		var index = $(this).closest('.index_nav').find('li').index(this);
 		$('.index_main').hide().eq(index).show();
 		$.fn.lazyload && $('body').lazyload();
 		return false;
 	}).eq(0).click();
+	*/
 	
 	// 轮播 
 	if($('.touchslideimg').length){
