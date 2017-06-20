@@ -1,18 +1,8 @@
-<div class="list_nav">
-	<div class="q">
-   	  <ul>
-        	<li><a href="#">公司新闻</a></li>
-            <li class="on"><a href="#">线下活动</a></li>
-            <li><a href="#">行业资讯</a></li>
-        </ul>
-    </div>
-</div>
-
 <div class="q path">
 	当前位置：
-    <a href="#">新闻活动</a>
+    <a href="javascript:;"><?php echo $parent_name;?></a>
        > 
-	<a href="#">线下活动</a> 
+	<a href="javascript:;"><?php echo $child_name;?></a>
 </div>
 
 <div class="q list">
@@ -20,8 +10,8 @@
         <div class="list_search">
             <h2>新闻资讯公告</h2>
             <p>
-                <input placeholder="输入关键词搜索"/>
-            	<a href="#">搜索</a> 
+                <input placeholder="输入关键词搜索" name="keyword" id="keyword"v/>
+                <a href="javascript:search();">搜索</a>                
             </p>
         </div>
         <div class="list_main">
@@ -46,3 +36,13 @@
 <div class="q">
 	
 </div>
+<script type="text/javascript">
+function search() {
+    var keyword = $("#keyword").val();
+    if(keyword == '' || keyword == null){
+        alert("输入关键词搜索");
+        return false;
+    }
+    location.href = '<?php echo input::site("index/index/search?keyword=");?>'+keyword;
+}
+</script>

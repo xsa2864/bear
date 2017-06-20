@@ -14,6 +14,20 @@
 	<script src="<?php echo input::jsUrl('jquery-1.10.1.min.js','index');?>" type="text/javascript"></script>
 	<script src="<?php echo input::jsUrl('communal.js','index');?>" type="text/javascript"></script>
 	<script src="<?php echo input::jsUrl('slideimg.js','index');?>" type="text/javascript"></script>
+
+	<script type="text/javascript">
+	document.onkeydown=function(event){
+	    var e = event || window.event || arguments.callee.caller.arguments[0];            
+	    if(e && e.keyCode==13){ // enter 键
+	        var inKeyword = $("#inKeyword").val();
+			if(inKeyword == '' || inKeyword == null){
+    		    alert("输入关键词搜索");
+    		    return false;
+    		}
+    		location.href = '<?php echo input::site("index/index/search?keyword=");?>'+inKeyword;
+	    }
+	}; 
+	</script>
 </head>
 <body>
 	<div class="top">
@@ -25,7 +39,7 @@
 				</div>
 				<div class="top_right cf tb">
 					<div class="search flex_1">
-						<input placeholder="输入关键词搜索"/>
+						<input placeholder="输入关键词搜索" id="inKeyword"/>
 					</div>
 					
 				</div>
@@ -43,10 +57,11 @@
 						$purl = '';
 						$url = input::site($value->url);
 						if(!empty($value->child_menu)){
+							$url = $url.'?mid='.$value->id;
 							$child = json_decode($value->child_menu);
 							$str = '<div class="result_mun" style="display:none;">';
 							foreach ($child as $keys => $ch) {
-								$churl = $url.'?type='.$ch->id;								
+								$churl = $url.'&type='.$ch->id;								
 								$str .= '<p><a href='.$churl.'>'.$ch->name.'</a></p>';
 								if($keys){
 									$purl = $churl;
@@ -55,7 +70,7 @@
 							$str .= '</div>';					
 						}				
 						$url = 	empty($purl) ? $url : $purl;	
-						$home = $key == 0 ? ' class="home"':'';
+						$home = $value->id == $mid ? ' class="home"':'';
 						echo '<li '.$home.'><a href='.$url.'> <i></i>'.$value->name.'</a>'.$str.'</li>';
 					}
 				}
@@ -63,7 +78,19 @@
 			</ul>
 		</div>
 	</div>
-	
+	<?php
+	if(!empty($chmenu)){
+	?>
+	<div class="list_nav">
+		<div class="q">
+	   	  <ul>
+	        <?php echo $chmenu;?>
+	        </ul>
+	    </div>
+	</div>
+	<?php 
+	}
+	?>
 
 	<!--页面主体-->
 	<?php if (isset($content)) echo $content;?>

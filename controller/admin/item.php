@@ -82,13 +82,14 @@ class Item_Controller extends Template_Controller{
         $data['catid']      = P("catid");
         $data['oldprice']   = P("oldprice");
         $data['price']      = P("price");
-        $data['shopinfo']   = P("shopinfo");
+        $data['limit_num']  = P("limit_num");
         $data['store']      = P("store");
+        $data['thumb']      = common_ext::getsimpicurl(P("thumb"));
         $data['mainPic']    = common_ext::getsimpicurl(P("mainPic"));
         $data['status']     = P("status");        
         $data['content']    = P("content");
-        $data['validtime']  = P("validtime");
-        $data['usetime']    = P("usetime");
+        $data['stime']      = strtotime(P("stime"));
+        $data['etime']      = strtotime(P("etime"));
         $rs = 0;
         if(empty($id)){
             $data['title'] = time();
@@ -116,12 +117,14 @@ class Item_Controller extends Template_Controller{
         $page = P("page",1);
         $pagesize = P("pagesize",10);
         $snum = ($page-1)*$pagesize;
-        $sql = "SELECT a.id,a.title,a.subtitle,c.cname,a.status,a.price,a.shopinfo,a.addtime FROM tf_item a LEFT JOIN  tf_item_category c ON a.catid=c.id 
+        $sql = "SELECT a.id,a.title,a.subtitle,c.cname,a.status,a.price,a.stime,a.etime,a.addtime FROM tf_item a LEFT JOIN  tf_item_category c ON a.catid=c.id 
              WHERE a.`status`!=-1 order by a.addtime desc limit ".$snum.",".$pagesize."";
         $result = M()->query($sql);
         // $result = M('advert_position')->where(array('status'=>1))->orderby('addtime desc')->  limit($snum,$pagesize)->execute();
         foreach($result as $value)
         {
+            $value->stime = $value->stime>0?date("m-d H:i",$value->stime):'---';
+            $value->etime = $value->etime>0?date("m-d H:i",$value->etime):'---';
             $value->addtime = date("Y-m-d H:i:s",$value->addtime);
         }        
         $data['Rows'] = $result;

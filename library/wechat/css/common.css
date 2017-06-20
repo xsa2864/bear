@@ -45,7 +45,6 @@
 	.index_banner a img { border-radius:0.1rem; margin-bottom:0.2rem;}
 	.index_banner a:last-child img { margin-bottom:0;}
 
-
 .index_list li a{ display:block; text-align:center;}
 .index_list li font{ display:block; line-height:0.26rem; padding-top:0.15rem;}
 .home_nav{ position:relative}
@@ -72,8 +71,8 @@
 	.index_arproduct_cen dd h4 { color:#333; line-height:0.45rem; margin-bottom:0.1rem;}
 		.index_arproduct_cen dd h4 a { font-size:0.3rem; }
 	.index_arproduct_cen dd p.info { color:#666; line-height:0.3rem; font-size:0.28rem; height:0.8rem;}
-	.index_main p.prize span { font-size:0.4rem; color:#ff3f6e; line-height:0.5rem;}
-		.index_main p.prize span i { font-size:0.3rem;}
+	p.prize span { font-size:0.4rem; color:#ff3f6e; line-height:0.5rem;}
+		p.prize span i { font-size:0.3rem;}	p.prize span em { font-size:0.35rem;} 
 	.index_main p.prize span:last-child { font-size:0.3rem; color:#aeaeae; margin-left:0.2rem; text-decoration:line-through;}
 	.index_arproduct_cen dd h5 { font-size:0.28rem; color:#666; padding-top:0.1rem;}  
 		.index_arproduct_cen dd h5 span { padding-left:0.1rem;}
@@ -118,15 +117,15 @@
 .fbox{height:1.1rem; background:none;}
 .fbox ul{ position:fixed;height:1.1rem;background:#ffffff;width:100%;bottom:0;left:auto; margin:0 auto;z-index:12; min-width:320px;max-width:720px; box-sizing:border-box}
 .fbox ul li{}
-.fbox ul li a{background:url(../images/index2_24.png) no-repeat center 0.17rem;background-size:0.48rem 0.42rem; font-size:0.24rem;color:#333;text-align:center; display:block; padding:0.7rem 0 0.1rem; line-height:0.24rem;}
+.fbox ul li a{background:url(../images/foot_ico01.png) no-repeat center 0.17rem;background-size:0.48rem 0.42rem; font-size:0.24rem;color:#333;text-align:center; display:block; padding:0.7rem 0 0.1rem; line-height:0.24rem;}
 .fbox ul li.on a{color:#23afca;}
 .fbox ul li:nth-child(2) a{background-image:url(../images/foot_ico02.png)}
 .fbox ul li:nth-child(3) a{background-image:url(../images/foot_ico03.png)}
 .fbox ul li:nth-child(4) a{background-image:url(../images/foot_ico04.png)}
 .fbox ul li.on:nth-child(1) a{background-image:url(../images/foot_onico01.png)}
-.fbox ul li.on:nth-child(2) a{background-image:url(../images/index2_26.png)}
-.fbox ul li.on:nth-child(3) a{background-image:url(../images/index2_28.png)}
-.fbox ul li.on:nth-child(4) a{background-image:url(../images/index2_21.png)}
+.fbox ul li.on:nth-child(2) a{background-image:url(../images/foot_onico02.png)}
+.fbox ul li.on:nth-child(3) a{background-image:url(../images/foot_onico03.png)}
+.fbox ul li.on:nth-child(4) a{background-image:url(../images/foot_onico04.png)}
 /*底部代码*/
 
 .details_foot{ background:#fff; height:1rem; line-height:1rem; text-align:center; position:relative; border-top:1px solid #e3e3e3;}
@@ -164,8 +163,6 @@
 	.edit p a{display:block;font-size:0.30rem; color:#333;}
 	.edit p.s_radio label { padding-left:1.1rem; } .edit p.s_radio label input { margin-right:0.2rem}
 
-
-
 input.checkbox{ position:relative; visibility:hidden;width:0.36rem;height:0.36rem; vertical-align:middle;margin-top:-0.03rem;display:inline-block;margin-right:0.1rem;}
 /*
 input.checkbox:after{content:' ';position:absolute;left:0;top:0;background:url(../images/checkbox_06.png) no-repeat center center;background-size:0.36rem 0.36rem;width:0.36rem;height:0.36rem; visibility:visible;}
@@ -185,6 +182,7 @@ input.checkbox:checked:after{background-image:url(../images/checkbox_03.png);}
 .back_index { box-sizing:border-box}
 .back_index a{ display:block; line-height:0.9rem; padding-left:0.8rem; font-size:0.32rem; color:#333; position:relative;}
 .back_index i{ background:url(../images/back_ico.png) no-repeat center center; width:0.36rem; height:0.9rem; background-size:0.36rem 0.30rem; display:block; position:absolute; left:0.3rem; top:0; }
+.confirm{ position:absolute; right:0; top:0; width:1.5rem; text-align:right; height:0.9rem; line-height:0.9rem; font-size:0.3rem;}
 
 
 /*首页特定*/
@@ -214,8 +212,7 @@ input.checkbox:checked:after{background-image:url(../images/checkbox_03.png);}
 	.massage_view>h1 { text-align:center; padding:0.2rem 0;}
 	.massage_view>h4 { text-align:center; position:relative; }
 		.massage_view>h4 span { position:absolute; right:0.2rem; color:#888; }
-	.massage_view p { font-size:0.3rem; line-height:0.48rem; padding:0.3rem 0; margin:0 0.2rem;}
-	.massage_view p:last-child {}
+	.massage_view p,.view1 p { font-size:0.3rem; line-height:0.48rem; padding:0.3rem 0; margin:0 0.2rem;}
 	.massage_view .info{margin-top:0.4rem;border-bottom:1px #afafaf dashed; border-top:1px #afafaf dashed; color:#888;}
 
 /*沙龙讲座************/
@@ -224,10 +221,20 @@ input.checkbox:checked:after{background-image:url(../images/checkbox_03.png);}
 	.salon_list>h5 { padding:0.35rem 0.25rem;} 
 		.salon_list>h5 a { color:#333; font-size:0.3rem; line-height:0.48rem; text-indent:0.6rem;}
 .salon_view{}
-	.salon_view>div { padding:0 0.25rem 0.3rem;}
+	.view>div:nth-child(2) { padding:0 0.25rem 0.3rem;} .view>div:nth-child(2)>h1 { padding-top:0.2rem;}
 		.salon_view>div>h1 { padding:0.2rem 0 0.3rem; border-bottom:1px #afafaf dashed; margin-bottom:0.2rem;}
-		.salon_view>div p { position:relative; padding:0.08rem 0 0.08rem 0.8rem; color:#333; font-size:0.3rem; line-height:0.36rem;}
-			.salon_view>div p em { position:absolute; color:#888; left:0;} .salon_view>div p span { padding-left:0.5rem;}
+	.view>div>p { font-size:0.3rem; position:relative; padding:0.08rem 0 0.08rem 0.8rem; color:#333; line-height:0.36rem;}
+			.view>div>p>em { position:absolute; color:#888; left:0; font-size:0.3rem; } 
+			.salon_view>div p span { padding-left:0.5rem;}
+/*会员卡************/
+.card_list { text-align:center;}
+	.card_list img { width:6.6rem; height:4.2rem; border-radius:0.1rem; margin:0 auto 0.2rem;}
+.card_view{}
+	.card_view>div>h1 { padding-bottom:0.1rem;} .card_view>div p.prize { padding-left:0;}
+	.card_view>div p.time { border-top:1px #afafaf dashed; padding:0.3rem 0 0.1rem 1.1rem; margin-top:0.1rem;}
+		.card_view>div p.time em { top:0.32rem;}
+	.card_view>h3 { text-align:center; line-height:0.9rem; border-bottom:1px #f5f5f5 solid;}
+
 
 /***查看更多***/
 .load a{ display:block; width:3rem; height:0.7rem; line-height:0.7rem; font-size:0.30rem; margin:0.2rem auto; background:#fff; border-radius:0.35rem; text-align:center; color:#333}

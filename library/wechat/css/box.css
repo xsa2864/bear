@@ -24,8 +24,11 @@ i,em{font-style:normal}
 .radius{ border-radius:0.3rem}
 /*距离*/
 .mar20{ margin-top:0.2rem;}
+.marr3{ margin-right:0.3rem !important}
+
 .pad9{ padding-top:0.9rem;}
 .pad11{ padding-top:1.1rem;}
+.padb12{ padding-bottom:1.2rem;}
 /*边框*/
 .bor_botno{border-bottom:none!important;}
 /*字体 字颜色*/
@@ -33,6 +36,8 @@ i,em{font-style:normal}
 .f30{ font-size:0.30rem !important; color:#333 !important}
 
 .c3{color:#333333!important;} .c6{color:#666666!important;} .c8{color:#888888 !important;}
+.blue { color:#23afca;}
+
 /*
 .mar25{ margin-bottom:0.25rem;}
 .marbtnone{ margin-bottom:0!important;}
@@ -42,7 +47,6 @@ i,em{font-style:normal}
 .mar2{ margin-bottom:2.2rem;}
 .mar3{ margin-top:0.3rem;}
 .mlr3{ margin-left:0.3rem;margin-right:0.3rem;width:auto !important;}
-.mlright3{ margin-right:0.3rem !important}
 .ml25{margin-left:0.25rem;}
 .mar75{margin-top:0.75rem !important;}
 .f282{font-size:0.28rem; color:#888 !important}
@@ -114,7 +118,6 @@ table td{ border:1px solid #e5e5e5; box-sizing:border-box}
 .header {position: fixed; min-width:320px;max-width:720px; width:100%;z-index:3;}
 /*
 .pad1{ padding-top:1rem;}
-.pad12{ padding-bottom:1.2rem;}
 
 /*尾部固定样式*/
 .footer,.bottom_btn,.commodity_foot{ position:fixed; top:auto; bottom:0; z-index:2; min-width:320px;max-width:720px; width:100%; }
@@ -150,6 +153,7 @@ footer li i{ display:block; padding-top:0.07rem; line-height:100%}
 
 /*共用的标题样式*/
 h1 { font-size:0.36rem; line-height:0.5rem;}
+h3 { font-size:0.32rem; line-height:0.44rem;}
 h4 { font-size:0.30rem; line-height:0.4rem;}
 h5 { font-size:0.28rem; line-height:0.36rem;}
 

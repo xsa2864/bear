@@ -22,6 +22,13 @@ class Index_Controller extends Public_Controller
   			$data['recommend'] = json_decode($recommend[0]->pics);
   			
   		}
+      // 智慧学院     
+      $school = M("article")->select("id,thumb,subtitle")->where("status=1 and catid=13")->orderby("addtime desc")->limit(0,1)->execute();
+      foreach ($school as $key => $value) {        
+         $subtitle_len = mb_strlen($value->subtitle,'utf-8');
+         $value->subtitle = $subtitle_len>52 ? mb_substr($value->subtitle, 0,52,'utf-8').'...':$value->subtitle;
+      }
+      $data['school'] = $school[0];
       // 二维码
 		  $qrcode = M("advert_position p")->select("d.pics")->join("advert_detail d","p.id=d.pid")->where("p.id=8")->execute();
   		$data['qrcode'] = '';
@@ -39,14 +46,27 @@ class Index_Controller extends Public_Controller
       }
       $data['news'] = $news;
       // 资产管理
-      $asset = M("article")->select("id,thumb,title,subtitle")->where("status=1 and catid=5")->orderby("addtime desc")->limit(0,1)->execute();
+      $asset = M("article")->select("id,thumb,title,subtitle,content")->where("status=1 and catid=5")->orderby("addtime desc")->limit(0,1)->execute();
       foreach ($asset as $key => $value) {
          $title_len = mb_strlen($value->title,'utf-8');
          $value->title = $title_len>26 ? mb_substr($value->title, 0,26,'utf-8').'...':$value->title;
          $subtitle_len = mb_strlen($value->subtitle,'utf-8');
          $value->subtitle = $subtitle_len>92 ? mb_substr($value->subtitle, 0,92,'utf-8').'...':$value->subtitle;
+         $content_len = mb_strlen($value->content,'utf-8');
+         $value->content = $content_len>92 ? mb_substr($value->content, 0,92,'utf-8').'...':$value->content;
       }
       $data['asset'] = $asset[0];
+      // 课程列表
+       $subject = M("item")->select("id,title,subtitle")->where("status=1")->orderby("addtime desc")->limit(0,5)->execute();
+      foreach ($subject as $key => $value) {
+         $title_len = mb_strlen($value->title,'utf-8');
+         $value->title = $title_len>26 ? mb_substr($value->title, 0,26,'utf-8').'...':$value->title;
+         $subtitle_len = mb_strlen($value->subtitle,'utf-8');
+         $value->subtitle = $subtitle_len>52 ? mb_substr($value->subtitle, 0,52,'utf-8').'...':$value->subtitle;
+      }
+      $data['subjects'] = $subject;
+      // 导师介绍
+      $data['teacher'] = M("article")->where("status=1 and catid=7")->orderby("addtime desc")->limit(0,3)->execute();
 
       // 移动社交
       $move = M("article")->select("id,thumb,title,subtitle,addtime")->where("status=1 and catid=6")->orderby("addtime desc")->limit(0,5)->execute();
@@ -69,16 +89,16 @@ class Index_Controller extends Public_Controller
     
     // 众合智慧
     public function wisdom(){
-      $type = G("type",'');
+      $type = G("type",$this->category);
 
-      $total = M("article")->getAllCount("catid='$type' and status=1");
+      $total = M("item")->getAllCount("catid='$type' and status=1");
       $data['pagination'] = pagination::getClass(array(
             'total'     => $total,
             'perPage'      => 10,
             'segment'      => 'page',
             ));
       $start    = ($data['pagination']->currentPage-1)*10;
-      $result = M("article")->select()->where("catid='$type'  and status=1")->orderby("addtime desc")->limit($start,10)->execute();
+      $result = M("item")->select()->where("catid='$type'  and status=1")->orderby("addtime desc")->limit($start,10)->execute();
       foreach ($result as $key => $value) {
          $title_len = mb_strlen($value->title,'utf-8');
          $value->title = $title_len>22 ? mb_substr($value->title, 0,22,'utf-8').'...':$value->title;
@@ -86,19 +106,25 @@ class Index_Controller extends Public_Controller
          $value->subtitle = $subtitle_len>92 ? mb_substr($value->subtitle, 0,92,'utf-8').'...':$value->subtitle;
          $value->addtime = date("Y-m-d H:i:s",$value->addtime);
       }
-      $data['list'] = $result;
-
+      $data['list'] = $result;    
+      $data['parent_name'] = $this->parent_name;
+      $data['child_name'] = $this->child_name;
     	$this->template->content = new View('index/index/wisdom_view',$data);
   	  	$this->template->render();
     }
     // 精品课程
     public function subject(){
+      $id = G("id");
+      $result = M("item")->getOneData("id='$id'");
+      $data['list'] = $result;
+      $data['parent_name'] = $this->parent_name;
+      $data['child_name'] = $this->child_name;
     	$this->template->content = new View('index/index/subject_view',$data);
   	  	$this->template->render();
     }
     // 精品课程
     public function activity(){
-      $type = G("type",'');
+      $type = G("type",$this->category);
 
       $total = M("article")->getAllCount("catid='$type' and status=1");
       $data['pagination'] = pagination::getClass(array(
@@ -116,14 +142,55 @@ class Index_Controller extends Public_Controller
          $value->addtime = date("Y-m-d H:i:s",$value->addtime);
       }
       $data['list'] = $result;
+      $data['parent_name'] = $this->parent_name;
+      $data['child_name'] = $this->child_name;
     	$this->template->content = new View('index/index/activity_view',$data);
   	  	$this->template->render();
+    }
+    // 精品课程
+    public function search(){
+      $keyword = G("keyword",'');
+
+      $total = M("article")->getAllCount("title like '%$keyword%' and status=1");
+      $data['pagination'] = pagination::getClass(array(
+            'total'     => $total,
+            'perPage'      => 5,
+            'segment'      => 'page',
+            ));
+      $start    = ($data['pagination']->currentPage-1)*5;
+      $result = M("article")->select()->where("title like '%$keyword%'  and status=1")->orderby("addtime desc")->limit($start,5)->execute();
+      foreach ($result as $key => $value) {
+         $title_len = mb_strlen($value->title,'utf-8');
+         $value->title = $title_len>26 ? mb_substr($value->title, 0,26,'utf-8').'...':$value->title;
+         $subtitle_len = mb_strlen($value->subtitle,'utf-8');
+         $value->subtitle = $subtitle_len>92 ? mb_substr($value->subtitle, 0,92,'utf-8').'...':$value->subtitle;
+         $value->addtime = date("Y-m-d H:i:s",$value->addtime);
+      }
+      $data['list'] = $result;
+      $data['parent_name'] = '搜索结果';
+      $data['child_name'] = $keyword;
+      $this->template->content = new View('index/index/activity_view',$data);
+      $this->template->render();
     }
     // 文章详情
     public function detail(){
       $id = G("id");
-      $result = M("article a")->select("a.title,a.subtitle,a.content,c.catname,a.addtime")->join("article_cat c","c.id=a.catid")->where("a.id='$id'")->limit(0,1)->execute();
+      $result = M("article a")->select("a.title,a.subtitle,a.content,c.catname,a.addtime,a.catid")->join("article_cat c","c.id=a.catid")->where("a.id='$id'")->limit(0,1)->execute();
       $data['content'] = $result[0];
+      $data['parent_name'] = empty($this->parent_name)?$data['content']->catname:$this->parent_name;
+      $data['child_name'] = empty($this->child_name)?$data['content']->title:$this->child_name;
+      // $menu = M("index_menu")->execute();
+      // $sort = '';
+      // foreach ($menu as $key => $value) {
+      //    if(!empty($value->child_menu)){
+      //       $arr = json_decode($value->child_menu,1);
+      //       if(in_array($data['content']['catid'], $arr)){
+      //          $sort = $value->sort;
+      //       }
+      //    }else{
+      //       $sort = 5;
+      //    }
+      // }
       $this->template->content = new View('index/index/detail_view',$data);
       $this->template->render();
     }

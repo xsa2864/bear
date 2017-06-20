@@ -2,7 +2,7 @@
 	<!-- 顶部导航 -->
 	<div class="top_nav back2">
     	<div class="back_index">
-            <a href="javascript:history.go(-1);"><i></i>讲座详情页</a></div> 
+            <a href="javascript:history.go(-1);"><i></i>预约沙龙</a></div> 
     </div>
 	<div class="pad11">
     	<div class="back2">
@@ -16,7 +16,7 @@
                     	<label><input type="radio" name="baby" id="baby1" checked class="checkbox" value="1"> 有 </label>
                         <label><input type="radio" name="baby" id="baby0" checked class="checkbox" value="0"> 没有</label>
                 </p>
-                <p><input type="text" name="age" id="age" class="clear_input" placeholder="宝宝年龄（周岁）"/></p>
+                <p class="show_age"><input type="text" name="age" id="age" class="clear_input" placeholder="宝宝年龄（周岁）"/></p>
         	</div>
         </div>  
         <div class="home_box back2 mar20">
@@ -47,6 +47,7 @@
             <dl class="flex_1 ">
             	<dd class="tb">
                     <span class="flex_1">
+                        <input type="hidden" name="id" id="id" value="<?php echo $id;?>">
                         <a class="blue" href="javascript:"  onclick="saveEnroll();">确认提交</a>
                     </span>
                 </dd>
@@ -55,19 +56,32 @@
     </div>
     
 </div>
-
+<style type="text/css">
+.show_age{
+    display: none;
+}
+</style>
 <script>
 function saveEnroll(){
+    var id = $("#id").val();
     var name = $("#name").val();
     var mobile = $("#mobile").val();
     var age = $("#age").val();
     var baby = $("input[name=baby]:checked").val();
     if(confirm("确认提交？")){
         $.post('<?php echo input::site("wechat/salon/saveEnroll");?>',
-        {'name':name,'mobile':mobile,'age':age,'baby':baby},
+        {'id':id,'name':name,'mobile':mobile,'age':age,'baby':baby},
         function(data){
             alert(data.msg);
         },'json')
     }
 }
+$("input[name=baby]").on('click',function(){
+    var age = $(this).val();
+    if(age == 0){
+        $(".show_age").hide();
+    }else{
+        $(".show_age").show();
+    }
+})
 </script>

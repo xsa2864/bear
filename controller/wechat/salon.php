@@ -16,15 +16,17 @@ class Salon_Controller extends Public_Controller
 	}
   	// 沙龙报名页面
   	public function enroll(){
+      $data['id'] = G("id",'');
   		$this->template->content = new View('wechat/salon/enroll_view',$data);
   	  	$this->template->render();
   	}
   	// 保存预约
   	public function saveEnroll(){
+      $data['alid'] = P("alid",'');
   		$data['name'] = P("name",'');
   		$data['mobile'] = P("mobile",'');
   		$data['baby'] = P("baby",'');  		
-
+      $member_id = 0;
   		$re_msg['success'] = 0;
   		$re_msg['msg'] = '预约失败';
   		$flag = true;
@@ -39,16 +41,39 @@ class Salon_Controller extends Public_Controller
   					$flag = false;
   				}
   			}
-  			if($flag){  				
-		  		$data['addtime'] = time();
-		  		$rs = M("salon_enroll")->insert($data);
-		  		if($rs){
-		  			$re_msg['success'] = 1;
-		  			$re_msg['msg'] = '预约成功';
-		  		}
-  			}else{
-  				$re_msg['msg'] = '周岁处请填入正确的数值';
-  			}
+         $enroll = M("salon_enroll")->getOneData("alid = '".$data['alid']."' and member_id='$member_id'");
+         if($enroll){
+            $re_msg['msg'] = '您已经预约成功';
+            die(json_encode($re_msg));
+         }
+         $article = M("article")->getOneData("id = '".$data['alid']."' and status=1");
+         if($article){
+            if(time()<$article->stime){
+               if($flag){              
+                  if($article->number >= $article->total){
+                     $re_msg['msg'] = '预约名额已满';
+                     die(json_encode($re_msg));
+                  }
+                  $data['member_id'] = $member_id;
+                  $data['addtime'] = time();
+                  $rs = M("salon_enroll")->insert($data);
+                  if($rs){
+                     $art['number +'] = 1;
+                     M("article")->update($art,"id = '".$data['alid']."'");
+                     $re_msg['success'] = 1;
+                     $re_msg['msg'] = '预约成功';
+                  }
+               }else{
+                  $re_msg['msg'] = '周岁处请填入正确的数值';
+               }
+            }else if(time()>$article->etime){
+               $re_msg['msg'] = '活动已结束';
+            }else{
+               $re_msg['msg'] = '活动预约已结束';
+            } 
+         }else{
+            $re_msg['msg'] = '活动不存在';
+         }	
   		}
   		echo json_encode($re_msg);
   	}

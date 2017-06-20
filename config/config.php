@@ -2,8 +2,8 @@
 if (isset($_SERVER['TESTENV'])) //用于测试环境，必须定义TESTENV
 {
 	return array(
-			'domain'	=> 'www.zhzhgw.com',//若未设置host，可以定义为localhost/example
-			'folder'	=> 'zhgw',
+			'domain'	=> 'www.ddxm.com',//若未设置host，可以定义为localhost/example
+			'folder'	=> 'ddxm',
 			'basePath'	=> dirname(__FILE__).DS,
 			'md5Key'	=> 'ambush.xilin',
             'basePath'	=> dirname(__FILE__).DS,
